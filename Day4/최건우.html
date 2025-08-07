@@ -1,0 +1,52 @@
+<div id="time-fixed"></div>
+
+  <div class="container">
+    <h1>최건우의 블로그</h1>
+
+    <div class="profile-image-wrapper">
+      <img src="https://cphoto.asiae.co.kr/listimglink/6/2014020409505490641_1.jpg" class="profile-image">
+    </div>
+
+    <div class="intro">
+      <p><strong>이름:</strong> 최건우</p>
+      <p><strong>나이:</strong> 17세</p>
+      <p>
+        안녕하세요! 저는 게임을 좋아하는 사람입니다.<br>
+        또한, 글 쓰는 것과 사람들과 소통하는 것을 즐깁니다.<br>
+        이 블로그는 제 생각과 목표, 그리고 취미를 공유하는 공간입니다.
+      </p>
+    </div>
+
+    <div class="posts">
+      <h2>최근 게시글</h2>
+      <div class="post">
+        <div class="post-title red">나의 꿈</div>
+        <p>저의 꿈은 좋은 대학에 들어가서 돈을 많이 버는 것입니다.</p>
+      </div>
+      <div class="post">
+        <div class="post-title yellow">올해 나의 목표</div>
+        <p>올해는 꾸준히 운동해서 체력을 기르고, 열심히 공부해서 1등급을 많이 받는 것이 폭표입니다.</p>
+      </div>
+      <div class="post">
+        <div class="post-title blue">나의 취미</div>
+        <p>제 취미는 독서, 게임, 컴퓨터 하기입니다. 축구도 좋아해요👍.</p>
+      </div>
+    </div>
+
+    <div class="comments">
+      <h2>댓글 작성</h2>
+      <div class="comment-form">
+        <input type="text" id="commentName" placeholder="이름을 입력하세요">
+        <textarea id="commentInput" rows="4" placeholder="댓글을 입력하세요..."></textarea><br>
+        <button onclick="addComment()">댓글 등록</button>
+      </div>
+
+      <div class="sort-buttons">
+        <label>정렬:</label>
+        <button onclick="setSortOrder('new')">최신순</button>
+        <button onclick="setSortOrder('old')">오래된순</button>
+      </div>
+
+      <div class="comment-list" id="commentList"></div>
+    </div>
+  </div>
