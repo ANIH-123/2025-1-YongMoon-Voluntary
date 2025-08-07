@@ -1,0 +1,85 @@
+let sortOrder = 'new';
+
+    function updateTime() {
+      const now = new Date();
+      document.getElementById("time-fixed").textContent = `현재 시각: ${now.toLocaleTimeString()}`;
+    }
+    setInterval(updateTime, 1000);
+    updateTime();
+
+    function addComment() {
+      const nameInput = document.getElementById("commentName");
+      const commentInput = document.getElementById("commentInput");
+      const name = nameInput.value.trim();
+      const text = commentInput.value.trim();
+      if (name === "" || text === "") return;
+
+      const comment = {
+        id: Date.now(),
+        name: name,
+        text: text,
+        timestamp: new Date().toLocaleString(),
+        likes: 0
+      };
+
+      const comments = getComments();
+      comments.push(comment);
+      localStorage.setItem("comments", JSON.stringify(comments));
+      renderComments();
+
+      nameInput.value = "";
+      commentInput.value = "";
+    }
+
+    function deleteComment(id) {
+      let comments = getComments();
+      comments = comments.filter(comment => comment.id !== id);
+      localStorage.setItem("comments", JSON.stringify(comments));
+      renderComments();
+    }
+
+    function likeComment(id) {
+      let comments = getComments();
+      const index = comments.findIndex(comment => comment.id === id);
+      if (index !== -1) {
+        comments[index].likes += 1;
+        localStorage.setItem("comments", JSON.stringify(comments));
+        renderComments();
+      }
+    }
+
+    function getComments() {
+      return JSON.parse(localStorage.getItem("comments") || "[]");
+    }
+
+    function setSortOrder(order) {
+      sortOrder = order;
+      renderComments();
+    }
+
+    function renderComments() {
+      const list = document.getElementById("commentList");
+      list.innerHTML = "";
+      let comments = getComments();
+
+      if (sortOrder === "new") {
+        comments.sort((a, b) => b.id - a.id);
+      } else {
+        comments.sort((a, b) => a.id - b.id);
+      }
+
+      comments.forEach(comment => {
+        const div = document.createElement("div");
+        div.className = "comment";
+        div.innerHTML = `
+          <strong>${comment.name}</strong>
+          <div class="timestamp">${comment.timestamp}</div>
+          <p>${comment.text}</p>
+          <button class="like-btn" onclick="likeComment(${comment.id})">♥ 좋아요 ${comment.likes}</button>
+          <button class="delete-btn" onclick="deleteComment(${comment.id})">삭제</button>
+        `;
+        list.appendChild(div);
+      });
+    }
+
+    renderComments();
